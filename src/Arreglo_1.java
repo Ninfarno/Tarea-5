@@ -1,15 +1,15 @@
 import java.util.Scanner;
 
-public class Arreglo {
-    //El arreglo es de 1-10
-    static String[] arreglo = {"1", "1", "6", "4", "5", "6", "5", "8", "9", "10"};
-    static Scanner scanner = new Scanner(System.in);
+public class Arreglo_1 {
+    //El arreglo es de variables diferentes
+    static String[] arreglo = {"1", "1", "a", "4", "5", "6", "5", "8", "9", "c"};
+    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
 
         while (true) {
             int opcion;
-            while (true) {
+            while (true) { //Para que no se tenga que estar iniciando cada codigo por separado
                 System.out.print("\nOpciones: \n" +
                         "1. Eliminar Elemento. \n" +
                         "2. Inserta un elemento al inicio. \n" +
@@ -18,17 +18,17 @@ public class Arreglo {
                         "5. Buscar y Cambiar. \n" +
                         "6. Salir. \n" +
                         "Ingrese una opcion: ");
-                try {
-                    opcion = scanner.nextInt();
+                try { //Me pasa muy seguido y me enfade de tener que esperar a que vuelva a correr
+                    opcion = sc.nextInt();
                     System.out.println();
-                    scanner.nextLine();
+                    sc.nextLine();
                     break;
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException e) { //La excepcion es si no es un numero
                     System.out.println("Error!! \nSolo se aceptan enteros");
                 }
             }
             switch (opcion) {
-                case 1:
+                case 1: //El caso donde se eliminara un numero del arreglo de manera aleatoria y se remplazara por un 0
                     String[] a = CambioN();
                     Imprimir();
                     System.out.print("Arreglo nuevo:");
@@ -37,7 +37,7 @@ public class Arreglo {
                     }
                     System.out.println();
                     break;
-                case 2:
+                case 2: //El caso preguntara un nuevo caracter y lo agregar al inicio eliminando el utlimo
                     String[] b = Agregar();
                     Imprimir();
                     System.out.print("Arreglo nuevo:");
@@ -45,7 +45,7 @@ public class Arreglo {
                         System.out.printf(" " + b[i]);
                     }
                     break;
-                case 3:
+                case 3: //Pregunta una nueva variable para ingresar y luego pregunta en que posicion
                     String[] c = Ingresar();
                     Imprimir();
                     System.out.print("Arreglo Nuevo:");
@@ -53,9 +53,9 @@ public class Arreglo {
                         System.out.printf(" " + c[i]);
                     }
                     break;
-                case 4:
+                case 4: //Pregunta un caracter y si esta te indicara en que parte del arreglo esta
                     String[] d = Buscar();
-                    if(!(d == null)) {
+                    if (!(d == null)) {
                         Imprimir();
                         System.out.print("Arreglo Nuevo: ");
                         for (int i = 0; i < arreglo.length; i++) {
@@ -63,7 +63,7 @@ public class Arreglo {
                         }
                     }
                     break;
-                case 5:
+                case 5: //Preguntara una variable y si esta en el arreglo Preguntara con que remplazarla
                     String[] e = Reemplazar();
                     if (!(e == null)) {
                         Imprimir();
@@ -74,7 +74,7 @@ public class Arreglo {
                     }
                     break;
                 case 6:
-                    scanner.close();
+                    sc.close();
                     return;
                 default:
                     System.out.println("Error!! \nOpcion no valida");
@@ -82,7 +82,7 @@ public class Arreglo {
         }
     }
 
-    public static void Imprimir() {//Imprime el arreglo original
+    public static void Imprimir() { //Imprime el arreglo original
         System.out.print("Arreglo original:");
         for (int i = 0; i < arreglo.length; i++) {
             System.out.printf(" " + arreglo[i]);
@@ -105,7 +105,7 @@ public class Arreglo {
         String N;
         String[] arreglo2 = new String[arreglo.length + 1];
         System.out.print("Ingrese el nuevo valor n: ");
-        arreglo2[0] = scanner.nextLine();
+        arreglo2[0] = sc.nextLine();
         for (int i = 0; i < arreglo.length; i++) {
             arreglo2[i + 1] = arreglo[i];
         }
@@ -115,12 +115,12 @@ public class Arreglo {
     public static String[] Ingresar() { //Ingresa una variable a eleguir en una posicion a eleguir
         String[] arreglo3 = new String[arreglo.length + 1];
         System.out.print("Ingrese el nuevo valor n: ");
-        String n = scanner.nextLine();
+        String n = sc.nextLine();
         int N = -1;
         while (true) {
             System.out.print("Ingrese la posicion: ");
             try {
-                N = Integer.parseInt(scanner.nextLine());
+                N = Integer.parseInt(sc.nextLine());
                 if (N >= arreglo.length || N < 1) {
                     System.out.println("la posicion debe de ser entre 1 y 10");
                 } else {
@@ -146,28 +146,25 @@ public class Arreglo {
     public static String[] Buscar() { //Pregunta una variable y si esta en el arreglo lo indicara
         int N = -1;
         String[] arreglo4 = arreglo.clone();
-        while (true) {
-            System.out.print("Ingrese un valor a buscar: ");
-            try {
-                N = Integer.parseInt(scanner.nextLine());
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Error!! \nIngresa un numero");
-            }
-        }
+
+        System.out.print("Ingrese un valor a buscar: "); //El valor puede ser alfanumerico
+        N = Integer.parseInt(sc.nextLine());
+
+
         String Objetivo = Integer.toString(N);
 
         for (int i = 0; i < arreglo.length; i++) {
             if (arreglo[i].equals(Objetivo)) {
                 System.out.println("El valor esta en el arreglo");
                 for (int j = 0; j < arreglo.length; j++) {
+                    //En caso de estar reeplazara los valores por * en caso de no ser objetivo//
                     if (!arreglo[j].equals(Objetivo)) {
                         arreglo4[j] = "*";
                     }
                 }
                 return arreglo4;
             }
-            if(i==(arreglo.length-1)) {
+            if (i == (arreglo.length - 1)) {
                 System.out.println("EL valor no esta en el arreglo");
             }
         }
@@ -177,23 +174,17 @@ public class Arreglo {
     public static String[] Reemplazar() {
 
         int N = -1;
-        while (true) {
-            System.out.print("Ingrese un valor a buscar: ");
-            try {
-                N = Integer.parseInt(scanner.nextLine());
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Error!! \nIngresa un numero");
-            }
-        }
+        System.out.print("Ingrese un valor a buscar: "); //El valor puede ser alfanumerico
+        N = Integer.parseInt(sc.nextLine());
+
         String Objetivo = Integer.toString(N);
         String[] arreglo5 = arreglo.clone();
 
         for (int i = 0; i < arreglo.length; i++) {
             if (arreglo[i].equals(Objetivo)) {
                 System.out.println("El valor esta en el arreglo");
-                System.out.print("Ingrese un valor o caracter para reemplazar: ");
-                arreglo5[i] = scanner.nextLine();
+                System.out.print("Ingrese un valor o caracter para reemplazar: "); //El valor puede ser alfanumerico
+                arreglo5[i] = sc.nextLine();
                 return arreglo5;
             }
 
