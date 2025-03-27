@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class CalAlumnos_6 {
+    static boolean Romper = true;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -9,6 +10,7 @@ public class CalAlumnos_6 {
         for (int i = 0; i < 3; i++) {
             int Materias;
 
+            //Establece las materias de cada alumno en la vuelta correspondiente
             if (i == 0) {
                 Materias = 3;
             } else if (i == 1) {
@@ -19,9 +21,13 @@ public class CalAlumnos_6 {
 
             Alumnos[i] = new double[Materias];
 
-            System.out.print("Ingrese las " + Materias + " calificaciones del alumno " + (i + 1) + ": ");
-            String DatosIn = scanner.nextLine();
-            Transfomrador(DatosIn, Alumnos, i);
+            while(true) {
+                System.out.print("Ingrese las " + Materias + " calificaciones del alumno " + (i + 1) + ": ");
+                String DatosIn = scanner.nextLine();
+                if (Transfomrador(DatosIn, Alumnos, i)){
+                    break;
+                }
+            }
         }
 
         double[] Promedio = Prom(Alumnos);
@@ -35,10 +41,12 @@ public class CalAlumnos_6 {
         }
     }
 
+    //Calcula el promedio de los 3 alumnos
     public static double[] Prom(double[][] Alumno) {
-        double Sumatoria = 0;
         double[] Promedio = new double[3];
+
         for (int i = 0; i < 3; i++) {
+            double Sumatoria = 0;
             for (int j = 0; j < Alumno[i].length; j++) {
                 Sumatoria += Alumno[i][j];
             }
@@ -47,10 +55,17 @@ public class CalAlumnos_6 {
         return Promedio;
     }
 
-    public static void Transfomrador(String DatosIn, double[][] Alumnos, int k) {
+    //Transfomra el arreglo de String a un arreglo de int
+    public static boolean Transfomrador(String DatosIn, double[][] Alumnos, int k) {
         String[] Calificaciones = DatosIn.split(" ");
         for (int i = 0; i < Calificaciones.length; i++) {
-            Alumnos[k][i] = Double.parseDouble(Calificaciones[i]);
+            try {
+                Alumnos[k][i] = Double.parseDouble(Calificaciones[i]);
+            } catch (NumberFormatException e) {
+                System.out.println("Error: '" + Calificaciones[i] + "' no es un número válido. Intente nuevamente.");
+                return false;
+            }
         }
+        return true;
     }
 }
