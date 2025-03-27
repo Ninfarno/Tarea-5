@@ -1,0 +1,4 @@
+Al momento de estar creando los codigos varias veces me saltaba el error de que los valores estaban fuera del arreglo
+ej: Tenia una arreglo de 12 y este iba de 0 a 11, pero yo ponia el limite en los for de 1 a 12. Al final recurri a 
+que cada vez que queria usar un arreglo en un for usaba arreglo.length para establecer el limite lo cual tambien 
+funciono para que pudiera usarlo con otros arreglos de tamaños diferentes.
