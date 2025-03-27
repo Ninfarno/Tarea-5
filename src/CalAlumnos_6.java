@@ -24,7 +24,7 @@ public class CalAlumnos_6 {
             while(true) {
                 System.out.print("Ingrese las " + Materias + " calificaciones del alumno " + (i + 1) + ": ");
                 String DatosIn = scanner.nextLine();
-                if (Transfomrador(DatosIn, Alumnos, i)){
+                if (Transfomrador(DatosIn, Alumnos, i)){//En caso de que todos sean validos rompera el bucle
                     break;
                 }
             }
